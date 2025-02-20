@@ -1,60 +1,90 @@
-import http from 'http';
+import http, { get } from 'http';
 import fs from 'fs';
+import { createEmp, ListEmp } from "./crud.js";
 
-const server = http.createServer((req , res) => {
-    const { url, method } = req;
-    console.log(`URL: ${url} - Method: ${method}`);        
-    // res.writeHead(200, { 'Content-Type':'text/plain'});
- 
- if(url === '/json'){
-    res.writeHead(200, { 'Content-Type':'application/json'});
-    const data = fs.createReadStream('./employees.json');
-   
-    data.pipe(res);
-    data.on('error', (err) => {
+
+/// Generic method 
+const sendResponse = (res, filePath, contentType) => {
+  res.writeHead(200, { 'Content-Type': contentType });
+  const data = fs.createReadStream(filePath);
+  
+  data.pipe(res);
+  data.on('error', (err) => {
       console.error("Response error:", err);
-      res.end(err);
-    });    
-  }else if(url === '/'){
-    res.writeHead(200, { 'Content-Type':'text/html'});
-    const data = fs.createReadStream('./EmployeeList.html');
-   
-    data.pipe(res);
-    data.on('error', (err) => {
-      console.error("Response error:", err);
-      res.end(err);
-    });    
-  }  
-  else if( method === 'GET' && url === '/astronomyLink'){
-    res.writeHead(200, { 'Content-Type':'image/png'});
-    const data = fs.createReadStream('./astronomy.jpg');
-   
-    data.pipe(res);
-    data.on('error', (err) => {
-      console.error("Response error:", err);
-      res.end(err);
-    });    
-  }else if( method === 'GET' && url === '/astronomy'){
-    res.writeHead(200, { 'Content-Type':'text/html'});
-    const data = fs.createReadStream('./astronomy.html');
-   
-    data.pipe(res);
-    data.on('error', (err) => {
-      console.error("Response error:", err);
-      res.end(err);
-    });    
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end("Internal Server Error");
+  });
+};
+
+
+
+
+/// Server code 
+
+const server = http.createServer((req, res) => {
+  const { url, method } = req;
+  console.log(`URL: ${url} - Method: ${method}`);
+
+  if (url === '/json') {
+    sendResponse(res, './employees.json', 'application/json');
+
+  } else if (url === '/') {
+    sendResponse(res, './EmployeeList.html', 'text/html');
+
   }
-  else{
-    res.writeHead(200, { 'Content-Type':'text/html'});
-      res.end('<h1> 404 Not found Page  </h1>');            
+  else if (method === 'GET' && url === '/astronomyLink') {
+    sendResponse(res, './astronomy.jpg', 'image/png');
+
+  }else if (method === 'GET' && url === '/serbalLink') {
+    sendResponse(res, './serbal.jpg', 'image/png');
+
+  } else if (method === 'GET' && url === '/astronomy') {
+    sendResponse(res, './astronomy.html', 'text/html');
+
+  }
+  else if (method === 'GET' && url === '/serbal') {
+    sendResponse(res, './serbal.html', 'text/html');
+
+  }
+  else if (method === 'GET' && url === '/style.css') {
+    sendResponse(res, './style.css', 'text/css');
+  }else if (method === 'POST' && url === '/Employees') {
+   
+   let body = '';
+    req.on('data',(chunk)=>{
+      body += chunk.toString();
+    })
+
+    req.on('end',()=>{
+     const newEmployee = JSON.parse(body);
+     const Employees = ListEmp(); 
+     const id = Employees.length > 0 ? Employees[Employees.length - 1].ID + 1 : 1;     
+     //XXXXXX
+     newEmployee.ID = id;
+      Employees.push(newEmployee);
+      createEmp(Employees);
+
+      res.writeHead(201, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          message: "Employee added successfully",
+          employee: newEmployee,
+      }));
+
+    })
+
+  }
+  else {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end('<h1> 404 Not found Page  </h1>');
   }
 
 
 });
+
 
 server.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
-
 
 
