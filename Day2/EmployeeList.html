@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2 id="head-data">Table of Data</h2>
+
+    <table border="2px solid black">
+        <thead>
+            <tr id="tableHeader">
+
+            </tr>
+        </thead>
+        <tbody id="data">
+
+        </tbody>
+
+    </table>
+    <script>
+        async function fetchData() {
+            try {
+                const employees = await fetch('http://localhost:3000/json')
+                    .then(res => {
+                        if (!res.ok) throw new Error('Failed to fetch Employees');
+                        return res.json();
+                    });
+                const header = document.getElementById('tableHeader');           //work on table header
+                const data = document.getElementById('data');           //work on table body
+
+                if (employees.length === 0) {
+                    console.warn('No data found');
+                    header.innerHTML = '<th>No Data Found</th>';
+                    body.innerHTML = '<td>No Data Found</td>';
+                    return;
+                }
+
+                header.innerHTML = '';
+                data.innerHTML = '';
+                /// {{HINT}} show with no ID on keys
+
+                const keys = Object.keys(employees[0]);
+                keys.forEach(k => {
+                    const th = document.createElement('th');
+                    th.textContent = k;
+                    header.appendChild(th);
+                });
+
+                employees.forEach(emp => {
+                    const tr = document.createElement('tr');
+                    keys.forEach(k => {
+                        const td = document.createElement('td');
+                        td.textContent = emp[k];
+                        tr.appendChild(td);
+                    });
+                    data.appendChild(tr);
+                    
+                });
+            } catch (error) {
+                console.error('An error occurred:', error.message);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>
+
