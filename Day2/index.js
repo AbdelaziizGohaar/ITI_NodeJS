@@ -16,9 +16,6 @@ const sendResponse = (res, filePath, contentType) => {
   });
 };
 
-
-
-
 /// Server code 
 
 const server = http.createServer((req, res) => {
@@ -56,7 +53,21 @@ const server = http.createServer((req, res) => {
     })
 
     req.on('end',()=>{
-     const newEmployee = JSON.parse(body);
+     let newEmployee ;
+     try{
+     if((req.headers["content-type"].includes("application/json"))){
+      newEmployee = JSON.parse(body);
+     }else{
+       newEmployee = Object.fromEntries(new URLSearchParams(body));  // form return xform data ==> not json or object i want to convert it to object 
+     }
+    }
+     catch(err){
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: "Invalid data" }));
+        return; 
+     }
+
+     
      const Employees = ListEmp(); 
      const id = Employees.length > 0 ? Employees[Employees.length - 1].ID + 1 : 1;     
      //XXXXXX
@@ -64,13 +75,20 @@ const server = http.createServer((req, res) => {
       Employees.push(newEmployee);
       createEmp(Employees);
 
-      res.writeHead(201, { "Content-Type": "application/json" });
-      res.end(
+      if((req.headers["content-type"] === ("application/json"))){
+
+        res.writeHead(201, { "Content-Type": "application/json" });
+       res.end(
         JSON.stringify({
           message: "Employee added successfully",
           employee: newEmployee,
       }));
 
+      }else{
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end( `<h1> Employee added successfully </h1> <br>  
+        <br> <a href="http://127.0.0.1:5500/addEmployee.html"> Back to Employees </a>`);        
+      }
     })
 
   }
@@ -79,12 +97,11 @@ const server = http.createServer((req, res) => {
     res.end('<h1> 404 Not found Page  </h1>');
   }
 
-
 });
+
 
 
 server.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
-
 
