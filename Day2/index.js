@@ -39,6 +39,17 @@ const server = http.createServer((req, res) => {
     sendResponse(res, './astronomy.html', 'text/html');
 
   }
+  else if (method === 'GET' && url === '/astronomy/download') {
+    // **Download Route**
+    const filePath = path.join(__dirname, 'astronomy.jpg'); // here ana haGet file path
+    res.writeHead(200, {
+        'Content-Type': 'image/jpeg',
+        'Content-Disposition': 'attachment; filename="astronomy.jpg"'
+    });
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+
+  }
   else if (method === 'GET' && url === '/serbal') {
     sendResponse(res, './serbal.html', 'text/html');
 
