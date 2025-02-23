@@ -7,10 +7,9 @@ const app = express();
 app.set("view engine", "pug");
 app.set("views", "views");
 
-app.use(express.json()); //middle ware json data
+app.use(express.json()); //middle ware json data ==> req.body for put ,Post ,patch 
 
-app.use(express.urlencoded({ extended: true })); // Allow form data
-
+app.use(express.urlencoded({ extended: true })); // middleware Allow Xform data
 
 app.use(employeeRouter);
 
@@ -20,3 +19,4 @@ app.use(express.static('public'));
 app.listen(3000,() =>{
     console.log('Server is running on port 3000');
 })
+
