@@ -1,0 +1,55 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d69090;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Page Header */
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Employee Table */
+  table {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(211, 116, 116);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Table Header */
+  th {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Table Data */
+  td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  /* Alternate Row Colors */
+  tr:nth-child(even) {
+    background-color: #7c4949;
+  }
+  
+  /* Hover Effect */
+  tr:hover {
+    background-color: #92b5d8;
+    transition: 0.3s;
+  }
+  

@@ -1,0 +1,48 @@
+
+//- ul
+//-   each val in employees
+//-     li= val.name
+//-     li= val.email
+//-     li= val.salary
+//-     li= val.age
+//-     li= val.level
+
+
+doctype html
+html
+  head
+    title Employee List
+      link(rel="stylesheet", href="/style.css") 
+    style.
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+
+  body
+    h1 Employee List
+    
+    table
+      thead
+        tr
+          th Name
+          th Email
+          th Salary
+          th Age
+          th Level
+      tbody
+        each val in employees
+          tr
+            td= val.name
+            td= val.email
+            td= val.salary
+            td= val.age
+            td= val.level

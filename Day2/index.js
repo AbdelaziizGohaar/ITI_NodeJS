@@ -1,4 +1,4 @@
-import http, { get } from 'http';
+import http from 'http';
 import fs from 'fs';
 import { createEmp, ListEmp } from "./crud.js";
 
@@ -38,9 +38,15 @@ const server = http.createServer((req, res) => {
   } else if (method === 'GET' && url === '/astronomy') {
     sendResponse(res, './astronomy.html', 'text/html');
 
+  } else if (method === 'GET' && url === '/serbal') {
+    sendResponse(res, './serbal.html', 'text/html');
+
+  }
+  else if (method === 'GET' && url === '/addemp') {
+    sendResponse(res, './addEmployee.html', 'text/html'); 
   }
   else if (method === 'GET' && url === '/astronomy/download') {
-    // **Download Route**
+    //// **Download Route**
     const filePath = path.join(__dirname, 'astronomy.jpg'); // here ana haGet file path
     res.writeHead(200, {
         'Content-Type': 'image/jpeg',
@@ -78,7 +84,6 @@ const server = http.createServer((req, res) => {
         return; 
      }
 
-     
      const Employees = ListEmp(); 
      const id = Employees.length > 0 ? Employees[Employees.length - 1].ID + 1 : 1;     
      //XXXXXX
@@ -109,8 +114,6 @@ const server = http.createServer((req, res) => {
   }
 
 });
-
-
 
 server.listen(3000, () => {
   console.log('Server is running on port 3000');
