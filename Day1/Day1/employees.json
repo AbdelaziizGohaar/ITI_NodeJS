@@ -1,0 +1,84 @@
+[
+  {
+    "ID": 1,
+    "name": "Gohaaar",
+    "email": "ej@xxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "yearsOfExperience": 0,
+    "level": "Jr"
+  },
+  {
+    "ID": 2,
+    "name": "Goooo",
+    "email": "goo@xxxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "yearsOfExperience": 0,
+    "level": "Jr"
+  },
+  {
+    "ID": 3,
+    "name": "Cristiano",
+    "email": "ej@xx.com",
+    "salary": 3000,
+    "age": 20,
+    "yearsOfExperience": 0,
+    "level": "Jr"
+  },
+  {
+    "ID": 4,
+    "name": "Cristiano",
+    "email": "ej@x.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Jr",
+    "yearsOfExperience": 0
+  },
+  {
+    "ID": 5,
+    "name": "Cristiano",
+    "email": "exx@ex.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Jr",
+    "yearsOfExperience": 0
+  },
+  {
+    "ID": 6,
+    "name": "Cristiano",
+    "email": "cr7@xxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Jr",
+    "yearsOfExperience": 0
+  },
+  {
+    "ID": 7,
+    "name": "Cristiano",
+    "email": "cr7@xxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Jr",
+    "yearsOfExperience": 0
+  },
+  {
+    "ID": 8,
+    "name": "cr7",
+    "email": "cr7@xxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Mid-Level",
+    "yearsOfExperience": 0
+  },
+  {
+    "ID": 9,
+    "name": "cr7",
+    "email": "cr7@xxxx.com",
+    "salary": 3000,
+    "age": 20,
+    "level": "Mid-Level",
+    "yearOfExperince": "1",
+    "yearsOfExperience": 0
+  }
+]

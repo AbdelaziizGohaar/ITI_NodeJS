@@ -19,7 +19,7 @@ body {
     margin: auto;
     border-collapse: collapse;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgb(211, 116, 116);
+    background-color: rgb(17, 89, 92);
     border-radius: 8px;
     overflow: hidden;
   }
@@ -44,12 +44,12 @@ body {
   
   /* Alternate Row Colors */
   tr:nth-child(even) {
-    background-color: #7c4949;
+    background-color: #32097e;
   }
   
   /* Hover Effect */
   tr:hover {
-    background-color: #92b5d8;
+    background-color: #102133;
     transition: 0.3s;
   }
   
