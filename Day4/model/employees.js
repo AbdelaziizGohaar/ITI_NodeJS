@@ -53,6 +53,7 @@ EmployeeSchema.set('toJSON', {
     transform: (doc, { __v, password, ...rest }) => rest
 });
 
+
 // Compare passwords method
 EmployeeSchema.methods.comparePasswords = async function (password) {
     return bcrypt.compare(password, this.password);

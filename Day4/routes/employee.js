@@ -5,8 +5,10 @@ import  EmployeeController from '../controllers/employee.js';
 const router = express.Router();
 
 //============= Create an employee (POST /employees)
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res,next) => {
     try {
+        if (!err) return res.json({token: data});  
+        next(err);
         const employee = await EmployeeController.create(req.body);
         res.status(201).json(employee);
     } catch (error) {
@@ -37,6 +39,9 @@ router.get('/:id', async (req, res) => {
 //============= Update (PATCH /employees/:id)
 router.patch('/:id', async (req, res) => {
     try {
+        if (req.params.id !== req.employee._id.toString()) {
+            return next({message: 'error unauthorized', status: 401});
+        }
         const updatedEmployee = await EmployeeController.update(req.params.id, req.body);
         res.json(updatedEmployee);
     } catch (error) {
@@ -45,8 +50,12 @@ router.patch('/:id', async (req, res) => {
 });
 
 //============= Delete an employee (DELETE /employees/:id)
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authentication, async (req, res, next) => {
     try {
+        if (req.params.id !== req.employee._id.toString()) {
+            return next({message: 'error unauthorized', status: 401});
+        }
+      
         await EmployeeController.remove(req.params.id);
         res.json({ message: "Employee deleted successfully" });
     } catch (error) {

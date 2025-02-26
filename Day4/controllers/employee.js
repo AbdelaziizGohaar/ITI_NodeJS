@@ -39,7 +39,19 @@ const remove = async (id) => {
     }
     return employee;
 };
-
+//======================login
+const login = async (data) => {
+    const employee = await Employee.findOne({username: data.username}).exec();
+    if (!employee) {
+      throw new CustomError('User name or password is not correct', 401);
+    }
+    const isValidPassword = employee.comparePasswords(data.password);
+    if (!isValidPassword) {
+      throw new CustomError('User name or password is not correct', 401);
+    }
+    const token = jwt.sign({id: employee._id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+    return token;
+  };
 export default{
     create,
     getAll,
